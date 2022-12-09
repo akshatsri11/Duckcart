@@ -1,6 +1,12 @@
 // ignore_for_file: file_names, prefer_typing_uninitialized_variables, prefer_interpolation_to_compose_strings
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tiobu/BonusScreen.dart';
+import 'package:tiobu/HomePage.dart';
+import 'package:tiobu/record.dart';
 
 class DonationScreen extends StatefulWidget {
   const DonationScreen({super.key, this.pic, this.name});
@@ -13,6 +19,50 @@ class DonationScreen extends StatefulWidget {
 }
 
 class _DonationScreenState extends State<DonationScreen> {
+  final myController = TextEditingController();
+  final myController1 = TextEditingController();
+  final myController2 = TextEditingController();
+
+  late SharedPreferences sharedPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+    initalGetSavedData();
+  }
+
+  void initalGetSavedData() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+
+    Map<String, dynamic> jsondatais =
+        jsonDecode(sharedPreferences.getString('donardata')!);
+    Donar donar = Donar.fromJson(jsondatais);
+
+    if (jsondatais.isNotEmpty) {
+      myController.value = TextEditingValue(text: donar.amount);
+      myController1.value = TextEditingValue(text: donar.name);
+      myController2.value = TextEditingValue(text: donar.message);
+    }
+  }
+
+  void storedata() {
+    Donar donar =
+        Donar(myController.text, myController1.text, myController2.text);
+
+    String donardata = jsonEncode(donar);
+    print(donardata);
+    sharedPreferences.setString('donardata', donardata);
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
+  final value = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +74,7 @@ class _DonationScreenState extends State<DonationScreen> {
         title: Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 gradient: LinearGradient(
                     colors: [Colors.black, Colors.amber],
@@ -59,9 +109,19 @@ class _DonationScreenState extends State<DonationScreen> {
             )
           ],
         ),
-        leading: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.black,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomePage(),
+              ),
+            );
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
         ),
       ),
       body: Column(
@@ -84,7 +144,7 @@ class _DonationScreenState extends State<DonationScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
             child: TextField(
-              obscureText: true,
+              controller: myController,
               decoration: InputDecoration(
                 hintText: "2000",
                 prefixIcon: Padding(
@@ -92,20 +152,21 @@ class _DonationScreenState extends State<DonationScreen> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.attach_money,
                         color: Colors.black,
                       ),
                       Column(
+                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                             child: Icon(
                               Icons.arrow_drop_up,
                               size: 35,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.arrow_drop_down,
                             size: 35,
                           )
@@ -122,7 +183,7 @@ class _DonationScreenState extends State<DonationScreen> {
           Padding(
             padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
             child: TextField(
-              obscureText: true,
+              controller: myController1,
               decoration: InputDecoration(
                 hintText: "Your name (optional)",
                 border:
@@ -135,6 +196,7 @@ class _DonationScreenState extends State<DonationScreen> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height / 2,
               child: TextField(
+                controller: myController2,
                 maxLines: 5,
                 decoration: InputDecoration(
                   hintText: "Say something nice... (optional)",
@@ -146,31 +208,42 @@ class _DonationScreenState extends State<DonationScreen> {
           ),
           Container(
             decoration: BoxDecoration(
-                color: Color.fromARGB(255, 132, 0, 255),
+                color: const Color.fromARGB(255, 132, 0, 255),
                 borderRadius: BorderRadius.circular(40)),
             width: MediaQuery.of(context).size.width / 2,
             child: RawMaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RecordScreen(
+                        name: myController1.text,
+                        amount: myController.text,
+                        message: myController2.text),
+                  ),
+                );
+                storedata();
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       text: "Support",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
                     ),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.attach_money,
                     color: Colors.white,
                   ),
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                       text: "20",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
