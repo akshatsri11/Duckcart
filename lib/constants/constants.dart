@@ -49,3 +49,7 @@ final des = [
 ];
 
 const voilet = Color.fromARGB(255, 132, 0, 255);
+
+final myController = TextEditingController();
+final myController1 = TextEditingController();
+final myController2 = TextEditingController();

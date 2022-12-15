@@ -1,8 +1,9 @@
 // ignore_for_file: file_names, prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:tiobu/screens/Screen2.dart';
 import 'package:tiobu/constants/constants.dart';
+
+import 'Screen2.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -89,11 +90,10 @@ class _MyGridState extends State<MyGrid> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DonationScreen(
-                          pic: pics[index],
-                          name: names[index],
-                        ),
-                      ),
+                          builder: (context) => DonationScreen(
+                                pic: pics[index],
+                                name: names[index],
+                              )),
                     );
                   },
                   child: Column(children: [

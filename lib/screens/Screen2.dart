@@ -5,9 +5,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiobu/constants/constants.dart';
-import 'package:tiobu/screens/BonusScreen.dart';
-import 'package:tiobu/screens/HomePage.dart';
 
+import 'package:tiobu/routes/route.dart' as route;
 import 'package:tiobu/models/record.dart';
 
 class DonationScreen extends StatefulWidget {
@@ -21,10 +20,6 @@ class DonationScreen extends StatefulWidget {
 }
 
 class _DonationScreenState extends State<DonationScreen> {
-  final myController = TextEditingController();
-  final myController1 = TextEditingController();
-  final myController2 = TextEditingController();
-
   late SharedPreferences sharedPreferences;
 
   @override
@@ -111,12 +106,7 @@ class _DonationScreenState extends State<DonationScreen> {
         ),
         leading: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ),
-            );
+            Navigator.pushNamed(context, route.homePage);
           },
           child: const Icon(
             Icons.arrow_back_ios,
@@ -212,15 +202,7 @@ class _DonationScreenState extends State<DonationScreen> {
             width: MediaQuery.of(context).size.width / 2,
             child: RawMaterialButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RecordScreen(
-                        name: myController1.text,
-                        amount: myController.text,
-                        message: myController2.text),
-                  ),
-                );
+                Navigator.pushNamed(context, route.recordScreen);
                 storedata();
               },
               child: Row(

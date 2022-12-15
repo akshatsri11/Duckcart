@@ -44,7 +44,6 @@ class _RecordScreenState extends State<RecordScreen> {
               child: Table(
                 defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                 border: TableBorder.all(color: Colors.white),
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
                   TableRow(
                     // ignore: prefer_const_literals_to_create_immutables
@@ -77,7 +76,6 @@ class _RecordScreenState extends State<RecordScreen> {
                     ],
                   ),
                   TableRow(
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Center(
                           child: Padding(
@@ -93,18 +91,17 @@ class _RecordScreenState extends State<RecordScreen> {
                         ),
                       ),
                       Center(
-                          child:
-                              Text('', style: TextStyle(color: Colors.white))),
+                          child: Text(widget.amount,
+                              style: TextStyle(color: Colors.white))),
                       Center(
-                          child:
-                              Text('', style: TextStyle(color: Colors.white))),
+                          child: Text(widget.name,
+                              style: TextStyle(color: Colors.white))),
                       Center(
-                          child:
-                              Text('', style: TextStyle(color: Colors.white))),
+                          child: Text(widget.message,
+                              style: TextStyle(color: Colors.white))),
                     ],
                   ),
                   TableRow(
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: [
                       Center(
                           child: Padding(
