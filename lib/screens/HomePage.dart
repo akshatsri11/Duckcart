@@ -1,22 +1,8 @@
 // ignore_for_file: file_names, prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:tiobu/Screen2.dart';
-
-const myGradient = [
-  LinearGradient(colors: [Colors.black, Colors.red], begin: Alignment.topRight),
-  LinearGradient(
-      colors: [Colors.black, Colors.purple], begin: Alignment.topRight),
-  LinearGradient(
-      colors: [Colors.black, Colors.amber], begin: Alignment.topRight),
-  LinearGradient(colors: [Colors.black, Colors.red], begin: Alignment.topRight),
-  LinearGradient(colors: [Colors.black, Colors.red], begin: Alignment.topRight),
-  LinearGradient(
-      colors: [Colors.black, Colors.purple], begin: Alignment.topRight),
-  LinearGradient(
-      colors: [Colors.black, Colors.amber], begin: Alignment.topRight),
-  LinearGradient(colors: [Colors.black, Colors.red], begin: Alignment.topRight),
-];
+import 'package:tiobu/screens/Screen2.dart';
+import 'package:tiobu/constants/constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -59,39 +45,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-final pics = [
-  "lib/images/BB.png",
-  "lib/images/CM.png",
-  "lib/images/PDP.jpg",
-  "lib/images/BB2.jpg",
-  "lib/images/BB.png",
-  "lib/images/CM.png",
-  "lib/images/PDP.jpg",
-  "lib/images/BB2.jpg",
-];
-
-final names = [
-  "BB ki Vines",
-  "Carrryminati",
-  "PewDiePie",
-  "BB ki Vines",
-  "BB ki Vines",
-  "Carrryminati",
-  "PewDiePie",
-  "BB ki Vines",
-];
-
-final des = [
-  "Youtuber",
-  "Youtuber",
-  "Musican",
-  "Actor",
-  "Youtuber",
-  "Youtuber",
-  "Musican",
-  "Actor"
-];
-
 class MyGrid extends StatefulWidget {
   const MyGrid({super.key});
 
@@ -102,6 +55,9 @@ class MyGrid extends StatefulWidget {
 class _MyGridState extends State<MyGrid> {
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
       child: Column(
@@ -148,11 +104,11 @@ class _MyGridState extends State<MyGrid> {
                             image: AssetImage(pics[index]),
                           ),
                           gradient: myGradient[index]),
-                      height: MediaQuery.of(context).size.height / 7.5,
+                      height: height / 7.5,
                     ),
                     Container(
-                      height: MediaQuery.of(context).size.height / 25,
-                      width: MediaQuery.of(context).size.width / 2.4,
+                      height: height / 25,
+                      width: width / 2.4,
                       child: Stack(children: [
                         RichText(
                             text: TextSpan(
@@ -189,23 +145,3 @@ class _MyGridState extends State<MyGrid> {
     );
   }
 }
-
-// Container(
-        //   child: Text(
-        //     "Recommendated Creators",
-        //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        //   ),
-        // ),
-
-        // GridView.builder(
-      //  Column(
-      //       children: [
-      //         Container(
-                
-      //         ),
-              
-      //             ],
-      //           ),
-      //         )
-      //       ],
-      //     ),

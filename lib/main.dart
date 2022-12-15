@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tiobu/shared_preferences.dart';
 
-import 'HomePage.dart';
+import 'package:tiobu/screens/HomePage.dart';
 
 void main() {
   runApp(const MyApp());
